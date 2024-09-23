@@ -14,7 +14,10 @@ RUN npm run build
 # Stage 2: Serve with nginx
 FROM nginx:alpine
 
-# Copy the build files from the first stage
+# Remove default Nginx static files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy the build files from the first stage to the Nginx html directory
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 909
